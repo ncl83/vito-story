@@ -5,6 +5,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <style type="text/css">
+        :root {
+            --font-size-intro: 1rem;
+            --font-size-messaggio: 1rem;
+            --font-size-risposta: 1.25rem;
+            --font-size-footer: 1rem;
+            --font-size-updates: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            /*height: 100vh;*/
+            flex-direction: column;
+        }
+
+        .content {
+            /*margin: 10px auto;*/
+            border: 3px #06F solid;
+            padding: 10px;
+            /*color:#333*/
+            margin: 0 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .content, .footer {
+            /*width: 50%;*/
+            max-width:600px;
+        }
+
+        .header-img {
+            width: 580px;
+            height: 123px;
+        }
+
         #titolo {
             width: 95%;
             margin: 0 auto;
@@ -12,18 +51,16 @@
             padding-top: 30px;
         }
 
-        #intro {
-            width: 95%;
-            margin: 0 auto;
-            padding-left: 20px;
-            padding-top: 30px;
+        .intro {
+            padding: 2rem 1rem;
+            font-size: var(--font-size-intro);
         }
 
         #cont_messaggio {
-            width: 95%;
-            margin: 0 auto;
+            /*width: 95%;*/
+            /*margin: 0 auto;*/
             text-align: center;
-            padding-top: 20px;
+            /*padding-top: 1rem;*/
             border-top: 1px #09F solid;
             border-bottom: 1px #09F solid;
             background-color: #EFEFEF;
@@ -31,7 +68,7 @@
 
         #cont_messaggio p {
             font-weight: bold;
-            font-size: 14px;
+            font-size: var(--font-size-messaggio);
         }
 
         #cont_risposta {
@@ -54,93 +91,136 @@
             text-align: center;
             vertical-align: top;
             font-style: italic;
-            font-size: 20px;
+            font-size: var(--font-size-risposta);
             font-weight: bold;
         }
 
-        #footer {
-            margin: 10px auto;
+        .footer {
+            /*margin: 10px auto;*/
             text-align: center;
-            width: 618px;
-            padding: 5px;
+            /*width: 618px;*/
+            padding: 50px;
             color: #000000;
-            font-size: 16px;
+            font-size: var(--font-size-footer);
         }
 
-        #footer a {
+        .footer ul {
+            margin: 0;
+            padding: 0;
+            list-style-type:none;
+            text-align:left;
+            font-size: var(--font-size-updates);
+        }
+
+        .footer ul li {
+            padding: 0.3rem 0;
+        }
+
+        .footer a {
             color: #000000;
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --font-size-intro: 1.25rem;
+                --font-size-messaggio: 1.125rem;
+                --font-size-risposta: 2.25rem;
+                --font-size-footer: 1.25rem;
+                --font-size-updates: 1.125rem;
+            }
+
+            .content {
+                width: 100%;
+            }
+
+            .header-img {
+                width: 100%;
+                height: 96px;
+            }
+            .intro {
+                font-size: var(--font-size-intro);
+            }
+
+            .footer {
+                padding: 0.5rem;
+            }
+
+            .footer ul {
+                padding: 0.5rem 0;
+                font-size: var(--font-size-updates);
+            }
         }
     </style>
 </head>
 
 <body>
-<div style="width:600px; margin:10px auto; border:3px #06F solid; padding: 10px; color:#333">
-    <img src="../titolo_vitobot.png" width="580" height="123"/>
+    <div class="content">
+        <img class="header-img" src="../titolo_vitobot.png"/>
 
-    <div id="intro">
+        <div class="intro">
 
-        <p>
-            Poichè la monotonia di <em>Vito Novemanelli</em> è cosa risaputa: le risposte che dà sono sempre le stesse,
-            sono standard e ciclicamente le ripete anche quando
-            non avrebbe senso dirle e/o scriverle. Vi do la possibilità di chattare 24 ore su 24 con lui. <br/>
-            Scrivete ciò che volete, riceverete una sua risposta random. Non noterete differenze con la sua controparte
-            umana, tanto le
-            cazzate sono sempre le stesse.<br/><br/>
+            <p>
+                Poichè la monotonia di <em>Vito Novemanelli</em> è cosa risaputa: le risposte che dà sono sempre le stesse,
+                sono standard e ciclicamente le ripete anche quando
+                non avrebbe senso dirle e/o scriverle. Vi do la possibilità di chattare 24 ore su 24 con lui. <br/>
+                Scrivete ciò che volete, riceverete una sua risposta random. Non noterete differenze con la sua controparte
+                umana, tanto le
+                cazzate sono sempre le stesse.<br/><br/>
 
-            Istruzioni per la chattata: le sue risposte sono state suddivise in tre categorie:
-        <ol>
-            <li>quando pensa di aver zittito qualcuno (non bisogna scrivere nessun messaggio).
-                <i>Attualmente ci sono <strong><span id="txt_zittire"></span></strong> risposte.</i>
-            </li>
-            <li>quando qualcuno ha scritto un lungo messaggio (scrivere almeno 20 caratteri).
-                <i>Attualmente ci sono <strong><span id="txt_lunghi_messaggi"></span></strong> risposte.</i>
-            </li>
-            <li>tutte le risposte che non rientrano nelle categorie precendenti (basta scrivere un carattere).
-                <i>Attualmente ci sono <strong><span id="txt_altre"></span></strong> risposte.</i>
-            </li>
-        </ol>
+                Istruzioni per la chattata: le sue risposte sono state suddivise in tre categorie:
+            <ol>
+                <li>quando pensa di aver zittito qualcuno (non bisogna scrivere nessun messaggio).
+                    <br/>
+                    <i>Attualmente ci sono <strong><span id="txt_zittire"></span></strong> risposte.</i>
+                </li>
+                <li>quando qualcuno ha scritto un lungo messaggio (scrivere almeno 20 caratteri).
+                    <br/><i>Attualmente ci sono <strong><span id="txt_lunghi_messaggi"></span></strong> risposte.</i>
+                </li>
+                <li>tutte le risposte che non rientrano nelle categorie precendenti (basta scrivere un carattere).
+                    <br/><i>Attualmente ci sono <strong><span id="txt_altre"></span></strong> risposte.</i>
+                </li>
+            </ol>
 
-        Buona chattata!!!
-        </p>
-    </div>
-
-    <div id="cont_messaggio">
-        <p>Scrivi un messaggio</p>
-        <textarea name="textarea" id="txt_messaggio" cols="60" rows="5"></textarea>
-        <br/> <br/>
-        <input type="submit" name="btn_messaggio" id="btn_messaggio" value="Chatta con Novemanelli"/>
-        <br/> <br/>
-    </div>
-
-    <br/>
-
-    <div id="cont_risposta">
-        <div id="img_risposta">
-            <img src="vito_risposta.png" width="132" height="114"/>
+            Buona chattata!!!
+            </p>
         </div>
-        <div id="txt_risposta">...zzzz....zzzz!!!</div>
+
+        <div id="cont_messaggio">
+            <p>Scrivi un messaggio</p>
+            <textarea name="textarea" id="txt_messaggio" cols="60" rows="5"></textarea>
+            <br/> <br/>
+            <input type="submit" name="btn_messaggio" id="btn_messaggio" value="Chatta con Novemanelli"/>
+            <br/> <br/>
+        </div>
+
+        <br/>
+
+        <div id="cont_risposta">
+            <div id="img_risposta">
+                <img src="vito_risposta.png" width="132" height="114"/>
+            </div>
+            <div id="txt_risposta">...zzzz....zzzz!!!</div>
+        </div>
     </div>
-</div>
 
-<div id="footer">
-    Per chi volesse rileggere le gesta epiche di "Vitradamus" e "Io sono il tuo Re" <a
-        href="vito_1_sono_il_suo_re.html">cliccate qui</a>,
-    <br/> per "Una storia vera" <a href="vito_3_una_storia_vera.html">qui</a>.
+    <div class="footer">
+        Per chi volesse rileggere le gesta epiche di "Vitradamus" e "Io sono il tuo Re" <a
+            href="vito_1_sono_il_suo_re.html">cliccate qui</a>,
+        <br/> per "Una storia vera" <a href="vito_3_una_storia_vera.html">qui</a>.
 
-    <br/><br/>
-    P.S: se vi ricordate altre frasi di Vito degne di nota comunicatemelo, così le aggiungerò! :)
+        <br/><br/>
+        P.S: se vi ricordate altre frasi di Vito degne di nota comunicatemelo, così le aggiungerò! :)
 
-    <br/><br/>
-    <ul style="list-style-type:none; text-align:left;">
-        <li><b>UPDATE 1 (30/03/2012)</b>: aggiunte le nuove frasi di Vito dette durante il compleanno di Chiara</li>
-        <li><b>UPDATE 2 (05/04/2012)</b>: aggiunta una nuova frase</li>
-        <li><b>UPDATE 3 (06/04/2012)</b>: aggiunte le frasi del Venerdì Santo</li>
-        <li><b>UPDATE 4 (07/04/2012)</b>: aggiunte le frasi dette al Joyce</li>
-        <li><b>UPDATE 5 (14/04/2012)</b>: aggiunto il tormentone di inizio primavera...ghioppete!</li>
-        <li><b>UPDATE 6 (03/10/2021)</b>: E dopo 9 anni il VitoBot si aggiorna!</li>
-
-    </ul>
-</div>
+        <br/><br/>
+        <ul>
+            <li><b>UPDATE 1 (30/03/2012)</b>: aggiunte le nuove frasi di Vito dette durante il compleanno di Chiara</li>
+            <li><b>UPDATE 2 (05/04/2012)</b>: aggiunta una nuova frase</li>
+            <li><b>UPDATE 3 (06/04/2012)</b>: aggiunte le frasi del Venerdì Santo</li>
+            <li><b>UPDATE 4 (07/04/2012)</b>: aggiunte le frasi dette al Joyce</li>
+            <li><b>UPDATE 5 (14/04/2012)</b>: aggiunto il tormentone di inizio primavera...ghioppete!</li>
+            <li><b>UPDATE 6 (03/10/2021)</b>: E dopo 9 anni il VitoBot si aggiorna!</li>
+        </ul>
+    </div>
 </body>
 </html>
 
