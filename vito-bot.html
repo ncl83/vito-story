@@ -35,7 +35,6 @@
         }
 
         .content, .footer {
-            /*width: 50%;*/
             max-width:600px;
         }
 
@@ -120,22 +119,34 @@
             color: #000000;
         }
 
-        @media (max-width: 600px) {
+        @media only screen
+            and (max-device-width: 600px)
+            and (-webkit-device-pixel-ratio: 3)  {
             :root {
-                --font-size-intro: 1.25rem;
-                --font-size-messaggio: 1.125rem;
-                --font-size-risposta: 2.25rem;
-                --font-size-footer: 1.25rem;
-                --font-size-updates: 1.125rem;
+                --font-size-intro: 2.5rem;
+                --font-size-messaggio: 2.5rem;
+                --font-size-risposta: 3rem;
+                --font-size-footer: 2.5rem;
+                --font-size-updates: 2.5rem;
             }
 
             .content {
                 width: 100%;
+
             }
 
+            .content, .footer {
+                max-width: 100%;
+            }
+
+            textarea {
+                width: 90%;
+                height: 200px;
+            }
             .header-img {
                 width: 100%;
-                height: 96px;
+                /*height: 96px;*/
+                aspect-ratio: 1;
             }
             .intro {
                 font-size: var(--font-size-intro);
@@ -226,7 +237,7 @@
 </html>
 
 <script>
-
+console.log('21212121')
     const risp = document.getElementById('txt_risposta');
     const txtZittire = document.getElementById('txt_zittire');
     const txtLunghiMsg =  document.getElementById('txt_lunghi_messaggi');
@@ -309,7 +320,8 @@
     txtAltre.textContent = risposte.length;
 
     document.getElementById('btn_messaggio').addEventListener('click', (e) => {
-        const msg = document.getElementById('txt_messaggio');
+        const msgEl = document.getElementById('txt_messaggio');
+        const msg = msgEl.value
         const lenMsg = msg.length;
 
         if (!lenMsg) {
